@@ -42,7 +42,7 @@ public class Thanksgiving
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Hi, what is your name?";
 	}
 	
 	/**
@@ -58,19 +58,19 @@ public class Thanksgiving
 		
 		if (statement.length() == 0)
 		{
-			response = "Say something, please.";
+			response = "Sorry to bother, but I want to know your name.";
 		}
 
-		else if (findKeyword(statement, "no") >= 0)
+		else if (findKeyword(statement, "food") >= 0)
 		{
-			response = "Why so negative?";
+			response = "I love food, too. ";
                 	emotion--;
 		}
 		
-		else if (findKeyword(statement, "levin") >= 0)
+		else if (findKeyword(statement, "levin") || (statement, "turkey") || (statement, "potato"))
 		{
 			response = "More like LevinTheDream amiright?";
-			emotion++;
+				emotion++;
 		}
 
 		// Response transforming I want to statement
