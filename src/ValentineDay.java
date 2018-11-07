@@ -22,7 +22,7 @@ public class ValentineDay
 		System.out.println (getGreeting());
 
 
-		while (!statement.equals("Bye"))
+		while (!statement.toLowerCase().equals("bye"))
 		{
 
 
@@ -120,7 +120,21 @@ public class ValentineDay
 		return "Why do you want to " + restOfStatement + "?";
 	}
 
-	
+	/**
+	 * transsforms "I love_" to "Why do you love _?"
+	 * @param statement is the user's statement
+	 * @return the transformed statement
+	 */
+	private String transfromILoveStatement(String statement){
+		statement=statement.trim();
+		String lastChar = statement.substring(statement.length()-1);
+		if (lastChar.equals(".")) {
+			statement = statement.substring(0, statement.length() - 1);
+		}
+		int psn= findKeyword(statement, "I love", 0);
+		String restOfStatement = statement.substring(psn+6).trim();
+		return "Why do you love " + restOfStatement + "?";
+	}
 	/**
 	 * Take a statement with "I want <something>." and transform it into 
 	 * "Would you really be happy if you had <something>?"

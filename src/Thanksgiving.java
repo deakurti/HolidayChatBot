@@ -67,11 +67,11 @@ public class Thanksgiving
                 	emotion--;
 		}
 		
-		else if (findKeyword(statement, "levin") || (statement, "turkey") || (statement, "potato"))
+		/** else if (findKeyword(statement, "levin") || (statement, "turkey") || (statement, "potato"))
 		{
 			response = "More like LevinTheDream amiright?";
 				emotion++;
-		}
+		}**/
 
 		// Response transforming I want to statement
 		else if (findKeyword(statement, "I want to", 0) >= 0)

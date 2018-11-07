@@ -15,7 +15,7 @@ public class ChatBotRunner
 	{
 		ValentineDay chatbot1 = new ValentineDay();
 		Halloween chatbot2 = new Halloween();
-		Thanksgiving chatbot3 = new Thanksgiving();
+		// Thanksgiving chatbot3 = new Thanksgiving();
 		
 
 		Scanner in = new Scanner (System.in);
