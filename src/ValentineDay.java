@@ -59,43 +59,48 @@ public class ValentineDay
 			response = "Say something, please.";
 		}
 
-		else if (findKeyword(statement, "no") >= 0)
+		else if (findKeyword(statement, "heartbroken") >= 0)
 		{
-			response = "Why so negative?";
+			response = "Chocolate is the cure to a broken heart.";
                 	emotion--;
 		}
 		
-		else if (findKeyword(statement, "levin") >= 0)
+		else if (findKeyword(statement, "love") >= 0)
 		{
-			response = "More like LevinTheDream, amiright?";
+			response = "Love is beautiful isn't it?";
 			emotion++;
 		}
-		else if (findKeyword(statement, "folwell") >= 0)
+		else if (findKeyword(statement, "pretty") >= 0)
 		{
-			response = "Watch your backpacks, Mr. Folwell doesn't fall well.";
+			response = "If you like pretty things, maybe you'll like this.";
 			emotion++;
 		}
-		else if (findKeyword(statement, "goldman") >= 0)
+		else if (findKeyword(statement, "romantic") >= 0)
 		{
-			response = "Go for the gold, man.";
+			response = "Love is in the air.";
 			emotion++;
+		}
+		else if (findKeyword(statement, "lonely")>=0)
+		{
+			response= "Maybe you should go out. Let cupid's arrow fly.";
+			emotion--;
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
-		{
-			response = transformIWantToStatement(statement);
-		}
-		else if (findKeyword(statement, "I want",0) >= 0)
-		{
-			response = transformIWantStatement(statement);
-		}	
-		else
-		{
-			response = getRandomResponse();
-		}
-		
-		return response;
+        else if (findKeyword(statement, "I want to", 0) >= 0)
+        {
+            response = transformIWantToStatement(statement);
+        }
+        else if (findKeyword(statement, "I want",0) >= 0)
+        {
+            response = transformIWantStatement(statement);
+        }
+        else
+        {
+            response = getRandomResponse();
+        }
+
+        return response;
 	}
 	
 	/**
@@ -278,7 +283,7 @@ public class ValentineDay
 		}
 		if (emotion < 0)
 		{	
-			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
+			return randomSadResponses [r.nextInt(randomSadResponses.length)];
 		}	
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
@@ -291,7 +296,7 @@ public class ValentineDay
 			"So, would you like to go for a walk?",
 			"Could you say that again?"
 	};
-	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
+	private String [] randomSadResponses = {":(", "Who needs love, anyway? That's what pets are for.", "Treat yo-self!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
 	
 }
