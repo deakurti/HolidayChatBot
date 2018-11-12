@@ -23,7 +23,7 @@ public class Halloween
 		System.out.println (getGreeting());
 
 
-		while (!statement.equals("Bye"))
+		while (!statement.equals("Goodbye."))
 		{
 
 
@@ -41,7 +41,7 @@ public class Halloween
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Hi! Thanksgiving is coming up! Are you excited?";
 	}
 	
 	/**
@@ -57,18 +57,18 @@ public class Halloween
 		
 		if (statement.length() == 0)
 		{
-			response = "Say something, please.";
+			response = "No response, huh? That's not good.";
 		}
 
 		else if (findKeyword(statement, "no") >= 0)
 		{
-			response = "Why so negative?";
+			response = "Why are you upset?";
                 	emotion--;
 		}
 		
-		else if (findKeyword(statement, "levin") >= 0)
+		else if (findKeyword(statement, "yes") >= 0)
 		{
-			response = "More like LevinTheDream amiright?";
+			response = "That's the right attitude!";
 			emotion++;
 		}
 
@@ -141,7 +141,7 @@ public class Halloween
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
 	 */
-	private String transformIYouStatement(String statement)
+	private String transformIWantedToTry.Statement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -153,8 +153,8 @@ public class Halloween
 					.length() - 1);
 		}
 		
-		int psnOfI = findKeyword (statement, "I", 0);
-		int psnOfYou = findKeyword (statement, "you", psnOfI);
+		int psnOfI = findKeyword (statement, "I wanted to try", 0);
+		int psnOfYou = findKeyword (statement, ".", psnOfI);
 		
 		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
 		return "Why do you " + restOfStatement + " me?";
@@ -260,15 +260,15 @@ public class Halloween
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
 	
-	private String [] randomNeutralResponses = {"Interesting, tell me more",
-			"Hmmm.",
+	private String [] randomNeutralResponses = {"Wow. What other types of food do you want to make?",
+			"I would love some mashed potatoes right now. How about you?",
 			"Do you really think so?",
-			"You don't say.",
-			"It's all boolean to me.",
-			"So, would you like to go for a walk?",
-			"Could you say that again?"
+			"Looks like we forgot the turkey.",
+			"Wow. I could use some turkey.",
+			"You seem upset. Do you want to go for a walk?",
+			"Sorry but can you repeat that again?"
 	};
-	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
+	private String [] randomAngryResponses = {"You need to be HAPPY!!", "We all go through a rough patch.", "I know how you feel."};
+	private String [] randomHappyResponses = {"I also had a lot of fun!", "I wish this food could last forever."};
 	
 }
