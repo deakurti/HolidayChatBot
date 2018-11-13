@@ -22,7 +22,7 @@ public class Halloween extends Chatbot
 	}
 
 	/**
-	 * Gives a response to a user statement
+	 * Gives a response to a user statement related to halloween
 	 *
 	 * @param statement
 	 *            the user statement
@@ -45,7 +45,7 @@ public class Halloween extends Chatbot
 
 		else if (findKeyword(statement, "pumpkin") >= 0)
 		{
-			response = "I could reallty use some pumpkin pie.";
+			response = "I could really use some pumpkin pie.";
 			emotion++;
 		}
 		else if (findKeyword(statement, "scary") >= 0)
@@ -67,7 +67,7 @@ public class Halloween extends Chatbot
 		// Response transforming I need to buy statement
 		else if (findKeyword(statement, "I need to buy", 0) >= 0)
 		{
-			response = transformIWantStatement(statement);
+			response = transformINeedToBuyStatement(statement);
 		}
 		else if (findKeyword(statement, "I want",0) >= 0)
 		{
@@ -75,7 +75,7 @@ public class Halloween extends Chatbot
 		}
 		else if (findKeyword(statement, "I love", 0)>=0)
 		{
-			response=transfromIWantStatement(statement);
+			response=transfromCostumeStatement(statement);
 		}
 		else if (findKeyword(statement, "I", 0) >= 0 && findKeyword(statement, "you", 2)>=0) {
 			response=transformIYouStatement(statement);
@@ -89,12 +89,12 @@ public class Halloween extends Chatbot
 	}
 
 	/**
-	 * Take a statement with "I want to <something>." and transform it into
-	 * "Why do you want to <something>?"
-	 * @param statement the user statement, assumed to contain "I want to"
+	 * Take a statement with "I need to buy <something>." and transform it into
+	 * "I love <something>."
+	 * @param statement the user statement, assumed to contain "I need to buy"
 	 * @return the transformed statement
 	 */
-	private String transformINeedToBuyToStatement(String statement)
+	private String transformINeedToBuyStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -107,11 +107,11 @@ public class Halloween extends Chatbot
 		}
 		int psn = findKeyword (statement, "I want ", 0);
 		String restOfStatement = statement.substring(psn + 9).trim();
-		return "I want" + restOfStatement + ",too.";
+		return "I love" + restOfStatement + ".";
 	}
 
 	/**
-	 * transsforms "I love_" to "Why do you love _?"
+	 * transsforms "costume" to "What kind do you want?"
 	 * @param statement is the user's statement
 	 * @return the transformed statement
 	 */
@@ -273,7 +273,7 @@ public class Halloween extends Chatbot
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
 
-	private String [] randomNeutralResponses = {It is the time of season for dressing up. Are you excited?",
+	private String [] randomNeutralResponses = {"It is the time of season for dressing up. Are you excited?",
 			"My mom is dressing up as a vampire. What is your costume?",
 			"Will you be my valentine?",
 			"I love the fall leaves falling",

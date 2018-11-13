@@ -13,14 +13,13 @@ public abstract class Chatbot {
         System.out.println (getGreeting());
 
 
-        while (!statement.equals("Goodbye."))
-        {
+
             statement = in.nextLine();
             //getResponse handles the user reply
             System.out.println(getResponse(statement));
 
 
-        }
+
     }
 
     public abstract String getResponse(String statement); // response method, different for every chatbot

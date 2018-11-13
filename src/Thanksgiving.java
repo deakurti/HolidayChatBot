@@ -22,8 +22,7 @@ public class Thanksgiving extends Chatbot
 	}
 
 	/**
-	 * Gives a response to a user statement
-	 *
+	 * Gives a response to a user statement related to thanksgiving	 *
 	 * @param statement
 	 *            the user statement
 	 * @return a response based on the rules given
@@ -58,6 +57,9 @@ public class Thanksgiving extends Chatbot
 		{
 			response = transformIWantStatement(statement);
 		}
+		else if (findKeyword(statement, "I wanted to try", 0)>=0){
+		    response=transformIWantedToTryStatement(statement);
+        }
 		else
 		{
 			response = getRandomResponse();
@@ -113,9 +115,9 @@ public class Thanksgiving extends Chatbot
 
 
 	/**
-	 * Take a statement with "I <something> you" and transform it into
-	 * "Why do you <something> me?"
-	 * @param statement the user statement, assumed to contain "I" followed by "you"
+	 * Take a statement with "I wanted to try <something> ." and transform it into
+	 * "I wanted to try <something> too."
+	 * @param statement the user statement, assumed to contain "I wanted to try" followed by "."
 	 * @return the transformed statement
 	 */
 	private String transformIWantedToTryStatement(String statement)
@@ -134,7 +136,7 @@ public class Thanksgiving extends Chatbot
 	int psnOfYou = findKeyword (statement, ".", psnOfI);
 
 	String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
-	return "Why do you " + restOfStatement + " me?";
+	return "I wanted to try " + restOfStatement + " too.";
 }
 
 

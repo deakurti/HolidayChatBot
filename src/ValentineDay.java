@@ -18,11 +18,11 @@ public class ValentineDay extends Chatbot
 	 */	
 	public String getGreeting()
 	{
-		return "Love is in the air. Are you excited?";
+		return "Happy Valentine's Day! Love is in the air. Are you excited?";
 	}
 	
 	/**
-	 * Gives a response to a user statement
+	 * Gives a response to a user statement related to valentines day
 	 * 
 	 * @param statement
 	 *            the user statement
