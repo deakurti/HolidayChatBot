@@ -288,15 +288,15 @@ public class ValentineDay
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
 	
-	private String [] randomNeutralResponses = {"Interesting, tell me more",
-			"Hmmm.",
-			"Do you really think so?",
-			"You don't say.",
-			"It's all boolean to me.",
-			"So, would you like to go for a walk?",
-			"Could you say that again?"
+	private String [] randomNeutralResponses = {"I'm single and ready to mingle!",
+			"I love chocolate. Don't you?",
+			"Will you be my valentine?",
+			"Is it snowing where you are?",
+			"What's your favorite kind of flower?",
+			"I think cupid forgot about me.",
+			"Can chatbots fall in love?"
 	};
-	private String [] randomSadResponses = {":(", "Who needs love, anyway? That's what pets are for.", "Treat yo-self!"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
+	private String [] randomSadResponses = {":(", "Who needs love, anyway? That's what pets are for.", "Treat yo-self!", "At least chocolate is on sale the day after."};
+	private String [] randomHappyResponses = {"Didn't the Beatles say love is all you need?", "Ah, to be young and in love!", "Happy Valentine's Day."};
 	
 }
