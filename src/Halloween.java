@@ -13,17 +13,17 @@ public class Halloween extends Chatbot
 	int emotion = 0;
 
 	/**
-	 * Get a default greeting 	
+	 * Get a default greeting
 	 * @return a greeting
-	 */	
+	 */
 	public String getGreeting()
 	{
-		return "Hi, what's up?";
+		return "It is the time of season for dressing up. Are you excited?";
 	}
-	
+
 	/**
 	 * Gives a response to a user statement
-	 * 
+	 *
 	 * @param statement
 	 *            the user statement
 	 * @return a response based on the rules given
@@ -31,48 +31,70 @@ public class Halloween extends Chatbot
 	public String getResponse(String statement)
 	{
 		String response = "";
-		
+
 		if (statement.length() == 0)
 		{
-			response = "No response, huh? That's not good.";
+			response = "Hey. Say something.";
 		}
 
-		else if (findKeyword(statement, "no") >= 0)
+		else if (findKeyword(statement, "costume") >= 0)
 		{
-			response = "Why are you upset?";
-                	emotion--;
-		}
-		
-		else if (findKeyword(statement, "yes") >= 0)
-		{
-			response = "That's the right attitude!";
+			response = "Do you still need to buy a costume?";
 			emotion++;
 		}
 
-		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
+		else if (findKeyword(statement, "pumpkin") >= 0)
 		{
-			response = transformIWantToStatement(statement);
+			response = "I could reallty use some pumpkin pie.";
+			emotion++;
+		}
+		else if (findKeyword(statement, "scary") >= 0)
+		{
+			response = "If you get scared easily, you won't like the Haunted House.";
+			emotion--;
+		}
+		else if (findKeyword(statement, "haunted") >= 0)
+		{
+			response = "Don't be nervous!!";
+			emotion--;
+		}
+		else if (findKeyword(statement, "candy")>=0)
+		{
+			response= "The best part of Halloween is getting free candy.";
+			emotion++;
+		}
+
+		// Response transforming I need to buy statement
+		else if (findKeyword(statement, "I need to buy", 0) >= 0)
+		{
+			response = transformIWantStatement(statement);
 		}
 		else if (findKeyword(statement, "I want",0) >= 0)
 		{
 			response = transformIWantStatement(statement);
-		}	
+		}
+		else if (findKeyword(statement, "I love", 0)>=0)
+		{
+			response=transfromIWantStatement(statement);
+		}
+		else if (findKeyword(statement, "I", 0) >= 0 && findKeyword(statement, "you", 2)>=0) {
+			response=transformIYouStatement(statement);
+		}
 		else
 		{
 			response = getRandomResponse();
 		}
-		
+
 		return response;
 	}
-	
+
 	/**
-	 * Take a statement with "I want to <something>." and transform it into 
+	 * Take a statement with "I want to <something>." and transform it into
 	 * "Why do you want to <something>?"
 	 * @param statement the user statement, assumed to contain "I want to"
 	 * @return the transformed statement
 	 */
-	private String transformIWantToStatement(String statement)
+	private String transformINeedToBuyToStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -83,14 +105,28 @@ public class Halloween extends Chatbot
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want to", 0);
+		int psn = findKeyword (statement, "I want ", 0);
 		String restOfStatement = statement.substring(psn + 9).trim();
-		return "Why do you want to " + restOfStatement + "?";
+		return "I want" + restOfStatement + ",too.";
 	}
 
-	
 	/**
-	 * Take a statement with "I want <something>." and transform it into 
+	 * transsforms "I love_" to "Why do you love _?"
+	 * @param statement is the user's statement
+	 * @return the transformed statement
+	 */
+	private String transfromCostumeStatement(String statement){
+		statement=statement.trim();
+		String lastChar = statement.substring(statement.length()-1);
+		if (lastChar.equals(".")) {
+			statement = statement.substring(0, statement.length() - 1);
+		}
+		int psn= findKeyword(statement, "costume", 0);
+		String restOfStatement = statement.substring(psn+6).trim();
+		return "What kind do you want " + restOfStatement + "?";
+	}
+	/**
+	 * Take a statement with "I want <something>." and transform it into
 	 * "Would you really be happy if you had <something>?"
 	 * @param statement the user statement, assumed to contain "I want"
 	 * @return the transformed statement
@@ -110,15 +146,15 @@ public class Halloween extends Chatbot
 		String restOfStatement = statement.substring(psn + 6).trim();
 		return "Would you really be happy if you had " + restOfStatement + "?";
 	}
-	
-	
+
+
 	/**
-	 * Take a statement with "I <something> you" and transform it into 
+	 * Take a statement with "I <something> you" and transform it into
 	 * "Why do you <something> me?"
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
 	 */
-	private String transformIWantedToTryStatement(String statement)
+	private String transformIYouStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -130,16 +166,16 @@ public class Halloween extends Chatbot
 					.length() - 1);
 		}
 
-		int psnOfI = findKeyword (statement, "I wanted to try", 0);
-		int psnOfYou = findKeyword (statement, ".", psnOfI);
+		int psnOfI = findKeyword (statement, "I", 0);
+		int psnOfYou = findKeyword (statement, "you", psnOfI);
 
 		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
 		return "Why do you " + restOfStatement + " me?";
 	}
-	
 
-	
-	
+
+
+
 	/**
 	 * Search for one word in phrase. The search is not case
 	 * sensitive. This method will check that the given goal
@@ -157,7 +193,7 @@ public class Halloween extends Chatbot
 	 *         statement or -1 if it's not found
 	 */
 	private int findKeyword(String statement, String goal,
-			int startPos)
+							int startPos)
 	{
 		String phrase = statement.trim().toLowerCase();
 		goal = goal.toLowerCase();
@@ -188,9 +224,9 @@ public class Halloween extends Chatbot
 			// found the word
 			if (((before.compareTo("a") < 0) || (before
 					.compareTo("z") > 0)) // before is not a
-											// letter
+					// letter
 					&& ((after.compareTo("a") < 0) || (after
-							.compareTo("z") > 0)))
+					.compareTo("z") > 0)))
 			{
 				return psn;
 			}
@@ -203,11 +239,11 @@ public class Halloween extends Chatbot
 
 		return -1;
 	}
-	
+
 	/**
 	 * Search for one word in phrase.  The search is not case sensitive.
 	 * This method will check that the given goal is not a substring of a longer string
-	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.  
+	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.
 	 * @param statement the string to search
 	 * @param goal the string to search for
 	 * @return the index of the first occurrence of goal in statement or -1 if it's not found
@@ -216,7 +252,7 @@ public class Halloween extends Chatbot
 	{
 		return findKeyword (statement, goal, 0);
 	}
-	
+
 
 
 	/**
@@ -227,25 +263,24 @@ public class Halloween extends Chatbot
 	{
 		Random r = new Random ();
 		if (emotion == 0)
-		{	
+		{
 			return randomNeutralResponses [r.nextInt(randomNeutralResponses.length)];
 		}
 		if (emotion < 0)
-		{	
-			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
-		}	
+		{
+			return randomSadResponses [r.nextInt(randomSadResponses.length)];
+		}
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
-	
-	private String [] randomNeutralResponses = {"Wow. What other types of food do you want to make?",
-			"I would love some mashed potatoes right now. How about you?",
-			"Do you really think so?",
-			"Looks like we forgot the turkey.",
-			"Wow. I could use some turkey.",
-			"You seem upset. Do you want to go for a walk?",
-			"Sorry but can you repeat that again?"
+
+	private String [] randomNeutralResponses = {It is the time of season for dressing up. Are you excited?",
+			"My mom is dressing up as a vampire. What is your costume?",
+			"Will you be my valentine?",
+			"I love the fall leaves falling",
+			"What's your favorite kind of flower?",
+			"Can chatbots fall in love?"
 	};
-	private String [] randomAngryResponses = {"You need to be HAPPY!!", "We all go through a rough patch.", "I know how you feel."};
-	private String [] randomHappyResponses = {"I also had a lot of fun!", "I wish this food could last forever."};
-	
+	private String [] randomSadResponses = {":(", "Stop being sad. Halloween is the time of tricks and treats.", "Trick or Treat?", "You look like a scary Jack-o-lantern."};
+	private String [] randomHappyResponses = {"Ah. To be happy on Halloween.", "Sometimes I wish I worked in a haunted house.", "have fun this Halloween."};
+
 }
