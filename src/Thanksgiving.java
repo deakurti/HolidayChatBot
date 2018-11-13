@@ -7,11 +7,10 @@ import java.util.Scanner;
  * @author Brooklyn Tech CS Department
  * @version September 2018
  */
-public class Halloween
+public class Thanksgiving
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
-
 
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
@@ -23,7 +22,7 @@ public class Halloween
 		System.out.println (getGreeting());
 
 
-		while (!statement.equals("Goodbye."))
+		while (!statement.toLowerCase().equals("Goodbye"))
 		{
 
 
@@ -62,14 +61,34 @@ public class Halloween
 
 		else if (findKeyword(statement, "no") >= 0)
 		{
-			response = "Why are you upset?";
+			response = "Hey. Why are you upset?";
 			emotion--;
 		}
 
-		else if (findKeyword(statement, "yes") >= 0)
+		else if (findKeyword(statement, "love") >= 0)
 		{
 			response = "That's the right attitude!";
 			emotion++;
+		}
+		else if (findKeyword(statement, "turkey") >= 0)
+		{
+			response = "I've been waiting for a Thanksgiving meal all year!";
+			emotion++;
+		}
+		else if (findKeyword(statement, "family") >= 0)
+		{
+			response = "Family-time is so important, don't you think?";
+			emotion++;
+		}
+		else if (findKeyword(statement, "lonely")>=0)
+		{
+			response= "Do you have any family to go to during Thanksgiivng?";
+			emotion--;
+		}
+		else if (findKeyword(statement, "not")>=0)
+		{
+			response= "Don't you have any reason to be thankful?";
+			emotion--;
 		}
 
 		// Response transforming I want to statement
@@ -91,8 +110,8 @@ public class Halloween
 
 	/**
 	 * Take a statement with "I want to <something>." and transform it into
-	 * "Why do you want to <something>?"
-	 * @param statement the user statement, assumed to contain "I want to"
+	 * "Would you really be happy if you had <something> ?"
+	 * @param statement the user statement, assumed to contain "I want "
 	 * @return the transformed statement
 	 */
 	private String transformIWantToStatement(String statement)
@@ -106,12 +125,26 @@ public class Halloween
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want to", 0);
+		int psn = findKeyword (statement, "I want ", 0);
 		String restOfStatement = statement.substring(psn + 9).trim();
-		return "Why do you want to " + restOfStatement + "?";
+		return "Would you really be happy if you had " + restOfStatement + "?";
 	}
 
-
+	/**
+	 * transsforms "I love_" to "Why do you love _?"
+	 * @param statement is the user's statement
+	 * @return the transformed statement
+	 */
+	private String transfromILoveStatement(String statement){
+		statement=statement.trim();
+		String lastChar = statement.substring(statement.length()-1);
+		if (lastChar.equals(".")) {
+			statement = statement.substring(0, statement.length() - 1);
+		}
+		int psn= findKeyword(statement, "I love", 0);
+		String restOfStatement = statement.substring(psn+6).trim();
+		return "Why do you love " + restOfStatement + "?";
+	}
 	/**
 	 * Take a statement with "I want <something>." and transform it into
 	 * "Would you really be happy if you had <something>?"
@@ -136,29 +169,29 @@ public class Halloween
 
 
 	/**
-	 * Take a statement with "I <something> you" and transform it into
-	 * "Why do you <something> me?"
+	 * Take a statement with "We <something> ." and transform it into
+	 * "It is cool that you guys <something> ."
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
 	 */
-	private String transformIWantedToTry.Statement(String statement)
-{
-	//  Remove the final period, if there is one
-	statement = statement.trim();
-	String lastChar = statement.substring(statement
-			.length() - 1);
-	if (lastChar.equals("."))
+	private String transformIFoodStatement(String statement)
 	{
-		statement = statement.substring(0, statement
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
 				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+
+		int psnOfI = findKeyword (statement, "We", 0);
+		int psnOfYou = findKeyword (statement, ".", psnOfI);
+
+		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
+		return "It is cool that you guys " + restOfStatement + ".";
 	}
-
-	int psnOfI = findKeyword (statement, "I wanted to try", 0);
-	int psnOfYou = findKeyword (statement, ".", psnOfI);
-
-	String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
-	return "Why do you " + restOfStatement + " me?";
-}
 
 
 
@@ -240,8 +273,6 @@ public class Halloween
 		return findKeyword (statement, goal, 0);
 	}
 
-
-
 	/**
 	 * Pick a default response to use if nothing else fits.
 	 * @return a non-committal string
@@ -255,20 +286,21 @@ public class Halloween
 		}
 		if (emotion < 0)
 		{
-			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
+			return randomUpsetResponses [r.nextInt(randomUpsetResponses.length)];
 		}
-		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
+		return randomExcitedResponses [r.nextInt(randomExcitedResponses.length)];
 	}
 
-	private String [] randomNeutralResponses = {"Wow. What other types of food do you want to make?",
+	private String [] randomNeutralResponses = {"Wow. What other tpyes of food do you want to make?",
 			"I would love some mashed potatoes right now. How about you?",
-			"Do you really think so?",
-			"Looks like we forgot the turkey.",
-			"Wow. I could use some turkey.",
+			"Does your family have any traditions?",
+			"Looks like we forgot the turkey. Do you want turkey?",
+			"Do you want gracy or cranberry sauce?",
 			"You seem upset. Do you want to go for a walk?",
 			"Sorry but can you repeat that again?"
 	};
-	private String [] randomAngryResponses = {"You need to be HAPPY!!", "We all go through a rough patch.", "I know how you feel."};
-	private String [] randomHappyResponses = {"I also had a lot of fun!", "I wish this food could last forever."};
+	private String [] randomUpsetResponses = {"You need to be HAPPY!!", "We all go through a rough patch.", "I know how you feel."};
+
+	private String [] randomExcitedResponses = {"I'm also very excited for the Thanksgiving Parade!!", "I think toda was the best day ever.", "Today really was a blast!"};
 
 }
