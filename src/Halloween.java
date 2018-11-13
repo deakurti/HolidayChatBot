@@ -7,41 +7,18 @@ import java.util.Scanner;
  * @author Brooklyn Tech CS Department
  * @version September 2018
  */
-public class Halloween
+public class Halloween extends Chatbot
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
 
-
-	/**
-	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
-	 * @param statement the statement typed by the user
-	 */
-	public void chatLoop(String statement)
-	{
-		Scanner in = new Scanner (System.in);
-		System.out.println (getGreeting());
-
-
-		while (!statement.equals("Goodbye."))
-		{
-
-
-			statement = in.nextLine();
-			//getResponse handles the user reply
-			System.out.println(getResponse(statement));
-
-
-		}
-
-	}
 	/**
 	 * Get a default greeting 	
 	 * @return a greeting
 	 */	
 	public String getGreeting()
 	{
-		return "Hi! Thanksgiving is coming up! Are you excited?";
+		return "Hi, what's up?";
 	}
 	
 	/**
@@ -141,7 +118,7 @@ public class Halloween
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
 	 */
-	private String transformIWantedToTry.Statement(String statement)
+	private String transformIWantedToTryStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -152,10 +129,10 @@ public class Halloween
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		
+
 		int psnOfI = findKeyword (statement, "I wanted to try", 0);
 		int psnOfYou = findKeyword (statement, ".", psnOfI);
-		
+
 		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
 		return "Why do you " + restOfStatement + " me?";
 	}

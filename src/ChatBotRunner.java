@@ -13,29 +13,25 @@ public class ChatBotRunner
 	 */
 	public static void main(String[] args)
 	{
-		ValentineDay chatbot1 = new ValentineDay();
-		Halloween chatbot2 = new Halloween();
-		Thanksgiving chatbot3 = new Thanksgiving();
-		
-
 		Scanner in = new Scanner (System.in);
-		System.out.println("Welcome to the chatbot, nice to meet you.");
+		System.out.println("Welcome to the holiday chatbot. Which holiday bot would you like to speak to? Press 1 for Valentine's Day, 2 for Halloween, and 3 for Thanksgiving.");
+		int holiday=in.nextInt();
+		Chatbot chatbot; // creates a placeholder chatbot before choosing which holiday
+		if (holiday==1) {
+			chatbot = new ValentineDay();}
+		else if (holiday==2) {
+			chatbot = new Halloween();}
+		else {
+			chatbot= new Thanksgiving();}
+
 		String statement = in.nextLine();
 
 
 		while (!statement.equals("Bye"))
 		{
-			//Use Logic to control which chatbot is handling the conversation\
-			//This example has only chatbot1
-
-
-
-			chatbot3.chatLoop(statement);
-
-
+			//Use Logic to control which chatbot is handling the conversation
+			chatbot.chatLoop(statement);
 			statement = in.nextLine();
-
-
 		}
 	}
 

@@ -7,40 +7,18 @@ import java.util.Scanner;
  * @author Brooklyn Tech CS Department
  * @version September 2018
  */
-public class ValentineDay
+public class ValentineDay extends Chatbot
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
 
-	/**
-	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
-	 * @param statement the statement typed by the user
-	 */
-	public void chatLoop(String statement)
-	{
-		Scanner in = new Scanner (System.in);
-		System.out.println (getGreeting());
-
-
-		while (!statement.toLowerCase().equals("bye"))
-		{
-
-
-			statement = in.nextLine();
-			//getResponse handles the user reply
-			System.out.println(getResponse(statement));
-
-
-		}
-
-	}
 	/**
 	 * Get a default greeting 	
 	 * @return a greeting
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Love is in the air. Are you excited?";
 	}
 	
 	/**
@@ -95,6 +73,13 @@ public class ValentineDay
         {
             response = transformIWantStatement(statement);
         }
+        else if (findKeyword(statement, "I love", 0)>=0)
+		{
+			response=transfromILoveStatement(statement);
+		}
+		else if (findKeyword(statement, "I", 0) >= 0 && findKeyword(statement, "you", 2)>=0) {
+			response=transformIYouStatement(statement);
+		}
         else
         {
             response = getRandomResponse();
@@ -293,10 +278,9 @@ public class ValentineDay
 			"Will you be my valentine?",
 			"Is it snowing where you are?",
 			"What's your favorite kind of flower?",
-			"I think cupid forgot about me.",
 			"Can chatbots fall in love?"
 	};
-	private String [] randomSadResponses = {":(", "Who needs love, anyway? That's what pets are for.", "Treat yo-self!", "At least chocolate is on sale the day after."};
+	private String [] randomSadResponses = {":(", "Who needs love, anyway? That's what pets are for.", "Treat yo-self!", "At least chocolate is on sale the day after.", "I think cupid forgot about me."};
 	private String [] randomHappyResponses = {"Didn't the Beatles say love is all you need?", "Ah, to be young and in love!", "Happy Valentine's Day."};
 	
 }
